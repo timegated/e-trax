@@ -15,6 +15,7 @@ import {
   MdPlaylistAdd,
   MdFavorite,
 } from 'react-icons/md';
+import Image from 'next/image';
 
 const SideBar = () => {
   return (
@@ -30,7 +31,17 @@ const SideBar = () => {
       <Box
         paddingY="20px"
       >
-
+        <Box
+          width="120px"
+          marginBottom="20px"
+          paddingX="20px"
+        >
+          <Image 
+            src="https://s3.amazonaws.com/random.web.assets/logo.svg"
+            height={60}
+            width={120}
+          />
+        </Box>
       </Box>
     </Box>
   );
