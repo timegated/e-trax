@@ -36,6 +36,19 @@ const navigation = [
   },
 ];
 
+const musicNav = [
+  {
+    name: 'Create Playlist',
+    icon: MdPlaylistAdd,
+    route: '/',
+  },
+  {
+    name: 'Favorites',
+    icon: MdFavorite,
+    route: '/favorites',
+  },
+];
+
 const SideBar = () => {
   return (
     <Box
@@ -71,7 +84,33 @@ const SideBar = () => {
                   fontSize="16px"
                 >
                   <LinkBox>
-                  {/* passHref passes the href to it's child component */}
+                    {/* passHref passes the href to it's child component */}
+                    <NextLink href={navItem.route} passHref>
+                      <LinkOverlay>
+                        <ListIcon as={navItem.icon} color="#FFFFFF" marginRight="20px" />
+                        {navItem.name}
+                      </LinkOverlay>
+                    </NextLink>
+                  </LinkBox>
+                </ListItem>
+              );
+            })}
+          </List>
+        </Box>
+        <Center>
+          <Divider width="75%" color="gray.800" marginBottom="20px" marginTop="10px" />
+        </Center>
+        <Box marginBottom="20px">
+          <List spacing={2}>
+            {musicNav.map(navItem => {
+              return (
+                <ListItem
+                  key={navItem.name}
+                  paddingX="20px"
+                  fontSize="16px"
+                >
+                  <LinkBox>
+                    {/* passHref passes the href to it's child component */}
                     <NextLink href={navItem.route} passHref>
                       <LinkOverlay>
                         <ListIcon as={navItem.icon} color="#FFFFFF" marginRight="20px" />
