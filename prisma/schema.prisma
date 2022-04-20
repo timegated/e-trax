@@ -12,23 +12,24 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  email     String     @unique
   password  String
   fullName  String
+  playList  PlayList[]
 }
 
 // One-to-Many Songs belong to Artists
 model Song {
-  id         Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  name       String
-  artist     Artist    @relation(fields: [artistId], references: [id])
-  artistId   Int
-  playList   PlayList[]
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String
+  artist    Artist     @relation(fields: [artistId], references: [id])
+  artistId  Int
+  playList  PlayList[]
 }
 
 model Artist {
@@ -52,4 +53,6 @@ model PlayList {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   songs     Song[]
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    Int
 }
