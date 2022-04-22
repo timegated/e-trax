@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 // For ensuring consistency of object instances
-import prisma from '../../lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 /**
@@ -35,11 +35,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const token = jwt.sign({
-      email: user.email,
-      id: user.id,
-      time: Date.now(),
-    },
+    email: user.email,
+    id: user.id,
+    time: Date.now(),
+  },
     'hello',
     { expiresIn: '8h' },
   );
+
+  res.setHeader(
+    'Set-Cookie',
+    cookie.serialize('TRAX_ACCESS_TOKEN', token, {
+      httpOnly: true,
+      maxAge: 8 * 60 * 60,
+      path: '/',
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    })
+  )
 };
