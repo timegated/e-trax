@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
-// For ensuring consistency of object instances
-import { prisma } from '../../lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
+// For ensuring consistency of object instances
+import prisma from '../../lib/prisma';
 
 /**
  * We need bcrypt for any sensitive information, this provides us with hashing functions to
@@ -32,6 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     res.status(401);
     res.json({ error: 'User Already Exists' });
+    return;
   }
 
   const token = jwt.sign({
