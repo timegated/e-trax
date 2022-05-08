@@ -15,6 +15,7 @@ import {
   MdPlaylistAdd,
   MdFavorite,
 } from 'react-icons/md';
+import { usePlaylist } from '../lib/hooks';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
@@ -50,6 +51,8 @@ const musicNav = [
 ];
 
 const SideBar = () => {
+  const { playLists } = usePlaylist();
+  console.log(playLists);
   return (
     <Box
       position="absolute"
@@ -123,6 +126,25 @@ const SideBar = () => {
             })}
           </List>
         </Box>
+        <Box marginTop="20px">
+          --
+        </Box>
+        <Divider color="gray.800" />
+          <Box height="66%" overflowY="auto">
+            <List spacing={2}>
+              {playLists.map(playList => {
+                <ListItem paddingX="20px" key={playList}>
+                  <LinkBox>
+                    <NextLink href="/">
+                      <LinkOverlay>
+                        {playList}
+                      </LinkOverlay>
+                    </NextLink>
+                  </LinkBox>
+                </ListItem>
+              })}
+            </List>
+          </Box>
       </Box>
     </Box>
   );
