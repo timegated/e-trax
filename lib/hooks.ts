@@ -3,7 +3,7 @@ import fetcher from './fetcher';
 
 // Get the user
 export const useMe = () => {
-  // handles revalidation of local data
+  // handles revalidation of local data/ cache-ing + cache invalidation (hard problems)
   const { data, error } = useSWR('/me', fetcher); // args: cacheKey
 
   return {
